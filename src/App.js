@@ -101,7 +101,7 @@ function App() {
     <div>
       <h3> Step 3: Create an "Untagged" tag</h3>
       <label htmlFor='tagName' style={{ marginRight: '1em' }}>Tag Name</label>
-      <input type="text" value={tagName} onChange={setTagName} />
+      <input type="text" value={tagName} onChange={(event) => setTagName(event.target.value)} />
       <div>Tag Type: {tagType}</div>
       <div>Tag Colour: {tagColour}</div>
       <div>Tag is private: {tagPrivate.toString()}</div>
