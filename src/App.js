@@ -66,7 +66,7 @@ function App() {
       <h3>Step 1: Enter Personal Access Token</h3>
       <p>You can get one from your <a href="https://kanka.io/en/settings/api">user settings</a> on kanka.io</p>
       <p>Note: I will look at an auth workflow in the future, but for now this is simplest</p>
-      <input type="text" value={accessToken} onChange={setAccessToken} />
+      <input type="text" value={accessToken} onChange={(event) => setAccessToken(event.target.value)} />
       <button onClick={async () => {
         if (typeof accessToken !== 'string' || accessToken.trim() < 1) {
           alert('Access token must not be blank');
