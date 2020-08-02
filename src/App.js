@@ -225,42 +225,43 @@ export default function HorizontalNonLinearStepper() {
   const getTaggingView = (
     <div>
       <h3>Final Step: Get tagging!</h3>
-      <div style={{marginBottom: '5em'}}>
-      <FormControlLabel
-        control={<Checkbox
-          checked={isPatron}
-          onChange={(event) => {
-            try {
-              const checkboxValue = event.target.checked;
-              if (api && api.instance != null ){
-                setIsPatron(checkboxValue);
-                api.instance.setRateLimitOptions({ maxRequests: checkboxValue ? 90 : 30, perMilliseconds: 1000 * 60 })
-                console.log(`Rate Limit set to ${checkboxValue ? 90 : 30} requests per minute`);
-              } else {
-                throw new Error ('Api token must be set first!');
-              }
-            } catch (error) {
-              console.error(error);
-              setSnackbarOpen(true);
-            }
-          }}
-          inputProps={{ 'aria-label': 'primary checkbox' }}
-        />}
-        label="Are you an Owlbear or Elemental tier subscriber? (faster)"
-      />
-      <div>
-        <b>Campaign to Tag:</b> <i>{selectedCampaignName}</i>
-      </div>
-      <div>
-        <b>Tag to be applied:</b> <i>{tagName} (#{metaTagId})</i> 
-      </div>
+      <div style={{ marginBottom: '2em' }}>
+        <div style={{ marginBottom: '1em' }}>
+          <b>Campaign to Tag:</b> <i>{selectedCampaignName}</i> <br />
+          <b>Tag to be applied:</b> <i>{tagName} (#{metaTagId})</i> <br />
+          <FormControlLabel
+            control={<Checkbox
+              checked={isPatron}
+              onChange={(event) => {
+                try {
+                  const checkboxValue = event.target.checked;
+                  if (api && api.instance != null) {
+                    setIsPatron(checkboxValue);
+                    api.instance.setRateLimitOptions({ maxRequests: checkboxValue ? 90 : 30, perMilliseconds: 1000 * 60 })
+                    console.log(`Rate Limit set to ${checkboxValue ? 90 : 30} requests per minute`);
+                  } else {
+                    throw new Error('Api token must be set first!');
+                  }
+                } catch (error) {
+                  console.error(error);
+                  setSnackbarOpen(true);
+                }
+              }}
+              inputProps={{ 'aria-label': 'primary checkbox' }}
+            />}
+            label="Are you an Owlbear or Elemental tier subscriber? (faster)"
+          />
+        </div>
+        <div>
+          {isTagging && <div><p>Tagging all untagged entities. This may take a few minutes depending on the number of untagged entities your campaign has.</p> <CircularProgress /></div>}
+          <p>{currentlyTagging}</p>
+          {finishedTagging && <p>All previously untagged entities are now tagged as <i>{tagName}</i>! <a href={`https://kanka.io/en/campaign/${selectedCampaignID}/tags/${metaTagId}`}>View them here</a></p>}
+        </div>
       </div>
       {
         metaTagId && <Button variant="contained" color="primary" onClick={tagAllTheThings}>Start Tagging!</Button>
       }
-      {isTagging && <div><p>Tagging all untagged entities. This may take a few minutes depending on the number of untagged entities your campaign has.</p> <CircularProgress /></div>}
-      <p>{currentlyTagging}</p>
-      {finishedTagging && <p>All previously untagged entities are now tagged as {tagName}! <a href={`https://kanka.io/en/campaign/${selectedCampaignID}/tags/${metaTagId}`}>View them here</a></p>}
+
     </div>
   )
 
