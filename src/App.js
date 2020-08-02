@@ -368,6 +368,9 @@ export default function HorizontalNonLinearStepper() {
             </div>
           )}
       </div>
+      <footer>
+        <a target="_blank" href="https://icons8.com/icons/set/book-and-pencil">Book And Pencil icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+      </footer>
     </div>
   );
 }
